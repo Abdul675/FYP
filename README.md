@@ -23,7 +23,7 @@ An AI-powered multi-agent productivity platform designed to automate daily digit
   - Voice-activated task creation, meeting setup, and document writing
 
 - 📡 **Cloud API Integration**
-  - Uses **GPT-4o (via OpenAI API)**, **Composio**, and **AgentOps** for seamless backend orchestration
+  - Uses **GPT-4o (via OpenAI API)**, **Composio**.
 
 ---
 
