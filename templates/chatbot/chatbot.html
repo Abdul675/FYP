@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Neural Flow AI - Chatbot</title>
+  
+  <!-- Link to the chatbot CSS file using url_for to serve from Flask static folder -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+</head>
+<body>
+  <div class="main-container">
+    <!-- User section at top right -->
+    <div class="user-section">
+      <div class="user-info" onclick="toggleUserDropdown()">
+        <img src="https://img.icons8.com/fluency/48/user-male-circle.png" alt="User" class="user-avatar" />
+        <span class="user-email">{{ user }}</span>
+        <img src="https://img.icons8.com/fluency/24/expand-arrow.png" alt="Expand" class="dropdown-arrow" />
+      </div>
+      <div class="user-dropdown" id="userDropdown">
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </div>
+    </div>
+    <!-- Toggle button for chat history -->
+    <div class="toggle-container">
+      <button class="history-toggle" onclick="toggleHistory()">
+        <img src="https://img.icons8.com/fluency/48/chevron-right.png" alt="Toggle History" />
+      </button>
+    </div>
+
+    <!-- Chat history panel -->
+    <div class="history-panel">
+      <div class="history-header">Chat History 2- 7 -2025</div>
+      <div class="history-list" id="historyList">
+        <!-- Chat history will be dynamically added here -->
+      </div>
+    </div>
+
+    <!-- Chat area -->
+    <div class="chat-wrapper">
+      <div class="chat-header">Neural Flow AI</div>
+      <div class="chat-area" id="chatArea">
+        <!-- Chatbot's initial message -->
+        <div id="chatOverlay">How can I help you today?</div>
+      </div>
+
+      <!-- Chat input section -->
+      <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="Type your message..." onkeydown="if(event.key==='Enter'){sendMessage()}">
+        <div class="button-group">
+          <!-- Send button -->
+          <button onclick="sendMessage()">
+            <img src="https://img.icons8.com/fluency/48/sent.png" alt="Send" />
+          </button>
+
+          <!-- Voice input button -->
+          <button onclick="startVoice()">
+            <img src="https://img.icons8.com/fluency/48/microphone.png" alt="Mic" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Voice Recording Modal -->
+  <div class="voice-modal" id="voiceModal">
+    <div class="voice-wave">
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+    </div>
+    <div class="voice-status">Listening...</div>
+    <div class="voice-controls">
+      <button class="submit-btn" onclick="submitVoice()">Submit</button>
+      <button class="cancel-btn" onclick="cancelVoice()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Analyzing Animation -->
+  <div class="analyzing-animation" id="analyzingAnimation">
+    <div class="analyzing-dots">
+      <div class="analyzing-dot"></div>
+      <div class="analyzing-dot"></div>
+      <div class="analyzing-dot"></div>
+    </div>
+    <div class="analyzing-text">Analyzing your message...</div>
+  </div>
+
+  <!-- Link to config and chatbot JS files using url_for -->
+  <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/upd_chatbot.js') }}"></script>
+  <script>
+    // User dropdown toggle
+    function toggleUserDropdown() {
+      const dropdown = document.getElementById('userDropdown');
+      dropdown.classList.toggle('show');
+    }
+    // Close dropdown if clicked outside
+    window.onclick = function(event) {
+      if (!event.target.closest('.user-info')) {
+        const dropdown = document.getElementById('userDropdown');
+        if (dropdown && dropdown.classList.contains('show')) {
+          dropdown.classList.remove('show');
+        }
+      }
+    }
+  </script>
+</body>
+</html>
